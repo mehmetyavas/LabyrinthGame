@@ -8,25 +8,19 @@ using UnityEngine.Serialization;
 public class PlayerController : MonoBehaviour, IDieAble, IDamageAble
 {
     public float moveSpeed;
-    private bool _isMoving;
+
+
+    public Facing facing;
 
     private Vector2 _input;
-
     private Rigidbody2D _rb;
-
-
     private Animator _animator;
-
-    private Transform _attackTransform;
-
 
     private void Start()
     {
         Health = 100;
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-
-        _attackTransform = transform.GetChild(0);
     }
 
     private void Update()
@@ -34,11 +28,15 @@ public class PlayerController : MonoBehaviour, IDieAble, IDamageAble
         _input.x = Input.GetAxisRaw(InputType.Horizontal.ToString());
         _input.y = Input.GetAxisRaw(InputType.Vertical.ToString());
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(Input.mousePosition);
+        }
 
-        Facing();
+        Moving();
     }
 
-    private void Facing()
+    private void Moving()
     {
         _animator.SetFloat(InputType.Horizontal.ToString(), _input.x);
         _animator.SetFloat(InputType.Vertical.ToString(), _input.y);
@@ -82,34 +80,39 @@ public class PlayerController : MonoBehaviour, IDieAble, IDamageAble
 
         Health -= damageTaken;
     }
-
-    public void AttackPosition(Direction direction)
-    {
-        var attackposition = transform.position + _attackTransform.position;
-        switch (direction)
-        {
-            case Direction.Right:
-                attackposition.x = 0.07f;
-                attackposition.y = 0.0f;
-                _attackTransform.position = attackposition;
-                break;
-            case Direction.Left:
-                attackposition.x = -0.07f;
-                attackposition.y = 0.00f;
-                _attackTransform.position = attackposition;
-                break;
-            case Direction.Top:
-                attackposition.x = 0.0f;
-                attackposition.y = 0.07f;
-                _attackTransform.position = attackposition;
-                break;
-            case Direction.Bottom:
-                attackposition.x = 0.0f;
-                attackposition.y = -0.07f;
-                _attackTransform.position = attackposition;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-        }
-    }
+    //
+    // public void AttackPosition(Direction direction)
+    // {
+    //     switch (direction)
+    //     {
+    //         case Direction.Right:
+    //             _attackPos = new Vector2
+    //             {
+    //                 x = 0.07f,
+    //                 y = 0.0f
+    //             };
+    //             _attackTransform.position = _attackPos;
+    //             break;
+    //         case Direction.Left:
+    //             _attackPos = new Vector2();
+    //             _attackPos.x = -0.07f;
+    //             _attackPos.y = 0.00f;
+    //             _attackTransform.position = _attackPos;
+    //             break;
+    //         case Direction.Top:
+    //             _attackPos = new Vector2();
+    //             _attackPos.x = 0.0f;
+    //             _attackPos.y = 0.07f;
+    //             _attackTransform.position = _attackPos;
+    //             break;
+    //         case Direction.Bottom:
+    //             _attackPos = new Vector2();
+    //             _attackPos.x = 0.0f;
+    //             _attackPos.y = -0.07f;
+    //             _attackTransform.position = _attackPos;
+    //             break;
+    //         default:
+    //             throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+    //     }
+    // }
 }

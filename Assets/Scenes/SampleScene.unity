@@ -3832,8 +3832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fed4e5d2e494bf2a37f7439deff73c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 2
-  force: 100
+  moveSpeed: 2
+  facing: 0
 --- !u!95 &586330959
 Animator:
   serializedVersion: 5
@@ -3973,7 +3973,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5331576203385180851, guid: 16af7f8e3987642ef9ea2bc132ed45c5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8334492478420732878, guid: 16af7f8e3987642ef9ea2bc132ed45c5, type: 3}
